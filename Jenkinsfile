@@ -21,5 +21,20 @@ pipeline {
 				])
 			}
 		}
+		stage("Package") {
+			steps {
+				sh "./mvnw package"
+			}
+		}
+		stage("Docker build") {
+			steps {
+				sh "docker build -t bschrey/calculator ."
+			}
+		}
+		stage("Docker push") {
+			steps {
+				sh "docker push bschrey/calculator"
+			}
+		}
 	}
 }
